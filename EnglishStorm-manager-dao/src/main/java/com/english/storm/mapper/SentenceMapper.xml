@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.english.storm.mapper.SentenceMapper" >
+  <resultMap id="BaseResultMap" type="com.english.storm.pojo.Sentence" >
+    <id column="_id" property="id" jdbcType="INTEGER" />
+    <result column="english" property="english" jdbcType="VARCHAR" />
+    <result column="chinese" property="chinese" jdbcType="VARCHAR" />
+    <result column="sound" property="sound" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    _id, english, chinese, sound
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.english.storm.pojo.SentenceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sentence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sentence
+    where _id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sentence
+    where _id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.english.storm.pojo.SentenceExample" >
+    delete from sentence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.english.storm.pojo.Sentence" >
+    insert into sentence (_id, english, chinese, 
+      sound)
+    values (#{id,jdbcType=INTEGER}, #{english,jdbcType=VARCHAR}, #{chinese,jdbcType=VARCHAR}, 
+      #{sound,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.english.storm.pojo.Sentence" >
+    insert into sentence
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        _id,
+      </if>
+      <if test="english != null" >
+        english,
+      </if>
+      <if test="chinese != null" >
+        chinese,
+      </if>
+      <if test="sound != null" >
+        sound,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="english != null" >
+        #{english,jdbcType=VARCHAR},
+      </if>
+      <if test="chinese != null" >
+        #{chinese,jdbcType=VARCHAR},
+      </if>
+      <if test="sound != null" >
+        #{sound,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.english.storm.pojo.SentenceExample" resultType="java.lang.Integer" >
+    select count(*) from sentence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sentence
+    <set >
+      <if test="record.id != null" >
+        _id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.english != null" >
+        english = #{record.english,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chinese != null" >
+        chinese = #{record.chinese,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sound != null" >
+        sound = #{record.sound,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sentence
+    set _id = #{record.id,jdbcType=INTEGER},
+      english = #{record.english,jdbcType=VARCHAR},
+      chinese = #{record.chinese,jdbcType=VARCHAR},
+      sound = #{record.sound,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.english.storm.pojo.Sentence" >
+    update sentence
+    <set >
+      <if test="english != null" >
+        english = #{english,jdbcType=VARCHAR},
+      </if>
+      <if test="chinese != null" >
+        chinese = #{chinese,jdbcType=VARCHAR},
+      </if>
+      <if test="sound != null" >
+        sound = #{sound,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where _id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.english.storm.pojo.Sentence" >
+    update sentence
+    set english = #{english,jdbcType=VARCHAR},
+      chinese = #{chinese,jdbcType=VARCHAR},
+      sound = #{sound,jdbcType=VARCHAR}
+    where _id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

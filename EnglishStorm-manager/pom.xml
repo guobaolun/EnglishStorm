@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>EnglishStorm-parent</artifactId>
+        <groupId>com.english.storm</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../EnglishStorm-parent/pom.xml</relativePath>
+    </parent>
+
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>EnglishStorm-manager</artifactId>
+    <packaging>pom</packaging>
+
+
+    <modules>
+        <module>../EnglishStorm-manager-pojo</module>
+        <module>../EnglishStorm-manager-dao</module>
+        <module>../EnglishStorm-manager-service</module>
+        <module>../EnglishStorm-manager-web</module>
+    </modules>
+
+
+    <build>
+        <plugins>
+            <!-- 配置Tomcat插件 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+
+                <configuration>
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <port>8080</port>
+                    <path>/EnglishStorm-manager</path>
+                    <!--&lt;!&ndash; 服务器热部署url，tomcat7的url &ndash;&gt;-->
+                    <url>http://120.77.32.231:8080/manager/text</url>
+
+                    <username>tomcat</username>
+                    <password>guobaolun</password>
+                    <!--<password>tomcat</password>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

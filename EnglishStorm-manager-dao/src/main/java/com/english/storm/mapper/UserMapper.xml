@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.english.storm.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.english.storm.pojo.User" >
+    <id column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="portrait" property="portrait" jdbcType="VARCHAR" />
+    <result column="lv" property="lv" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="CHAR" />
+    <result column="birthday" property="birthday" jdbcType="BIGINT" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="last_time" property="lastTime" jdbcType="BIGINT" />
+    <result column="permission" property="permission" jdbcType="INTEGER" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="degree" property="degree" jdbcType="VARCHAR" />
+    <result column="speciality" property="speciality" jdbcType="VARCHAR" />
+    <result column="current_country" property="currentCountry" jdbcType="VARCHAR" />
+    <result column="current_province" property="currentProvince" jdbcType="VARCHAR" />
+    <result column="current_city" property="currentCity" jdbcType="VARCHAR" />
+    <result column="current_area" property="currentArea" jdbcType="VARCHAR" />
+    <result column="hometown_country" property="hometownCountry" jdbcType="VARCHAR" />
+    <result column="hometown_province" property="hometownProvince" jdbcType="VARCHAR" />
+    <result column="hometown_city" property="hometownCity" jdbcType="VARCHAR" />
+    <result column="hometown_area" property="hometownArea" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, password, nickname, introduce, portrait, lv, sex, birthday, email, create_time, 
+    last_time, permission, school, degree, speciality, current_country, current_province, 
+    current_city, current_area, hometown_country, hometown_province, hometown_city, hometown_area
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.english.storm.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where user_id = #{userId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.english.storm.pojo.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.english.storm.pojo.User" >
+    insert into user (user_id, password, nickname, 
+      introduce, portrait, lv, 
+      sex, birthday, email, create_time, 
+      last_time, permission, school, 
+      degree, speciality, current_country, 
+      current_province, current_city, current_area, 
+      hometown_country, hometown_province, hometown_city, 
+      hometown_area)
+    values (#{userId,jdbcType=CHAR}, #{password,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{introduce,jdbcType=VARCHAR}, #{portrait,jdbcType=VARCHAR}, #{lv,jdbcType=INTEGER}, 
+      #{sex,jdbcType=CHAR}, #{birthday,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{lastTime,jdbcType=BIGINT}, #{permission,jdbcType=INTEGER}, #{school,jdbcType=VARCHAR}, 
+      #{degree,jdbcType=VARCHAR}, #{speciality,jdbcType=VARCHAR}, #{currentCountry,jdbcType=VARCHAR}, 
+      #{currentProvince,jdbcType=VARCHAR}, #{currentCity,jdbcType=VARCHAR}, #{currentArea,jdbcType=VARCHAR}, 
+      #{hometownCountry,jdbcType=VARCHAR}, #{hometownProvince,jdbcType=VARCHAR}, #{hometownCity,jdbcType=VARCHAR}, 
+      #{hometownArea,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.english.storm.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="portrait != null" >
+        portrait,
+      </if>
+      <if test="lv != null" >
+        lv,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastTime != null" >
+        last_time,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="degree != null" >
+        degree,
+      </if>
+      <if test="speciality != null" >
+        speciality,
+      </if>
+      <if test="currentCountry != null" >
+        current_country,
+      </if>
+      <if test="currentProvince != null" >
+        current_province,
+      </if>
+      <if test="currentCity != null" >
+        current_city,
+      </if>
+      <if test="currentArea != null" >
+        current_area,
+      </if>
+      <if test="hometownCountry != null" >
+        hometown_country,
+      </if>
+      <if test="hometownProvince != null" >
+        hometown_province,
+      </if>
+      <if test="hometownCity != null" >
+        hometown_city,
+      </if>
+      <if test="hometownArea != null" >
+        hometown_area,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="portrait != null" >
+        #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null" >
+        #{lv,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=BIGINT},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=BIGINT},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=INTEGER},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null" >
+        #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCountry != null" >
+        #{currentCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="currentProvince != null" >
+        #{currentProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCity != null" >
+        #{currentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="currentArea != null" >
+        #{currentArea,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCountry != null" >
+        #{hometownCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownProvince != null" >
+        #{hometownProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCity != null" >
+        #{hometownCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownArea != null" >
+        #{hometownArea,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.english.storm.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=CHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduce != null" >
+        introduce = #{record.introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.portrait != null" >
+        portrait = #{record.portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lv != null" >
+        lv = #{record.lv,jdbcType=INTEGER},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=BIGINT},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.lastTime != null" >
+        last_time = #{record.lastTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.permission != null" >
+        permission = #{record.permission,jdbcType=INTEGER},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.degree != null" >
+        degree = #{record.degree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.speciality != null" >
+        speciality = #{record.speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentCountry != null" >
+        current_country = #{record.currentCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentProvince != null" >
+        current_province = #{record.currentProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentCity != null" >
+        current_city = #{record.currentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentArea != null" >
+        current_area = #{record.currentArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hometownCountry != null" >
+        hometown_country = #{record.hometownCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hometownProvince != null" >
+        hometown_province = #{record.hometownProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hometownCity != null" >
+        hometown_city = #{record.hometownCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hometownArea != null" >
+        hometown_area = #{record.hometownArea,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set user_id = #{record.userId,jdbcType=CHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      introduce = #{record.introduce,jdbcType=VARCHAR},
+      portrait = #{record.portrait,jdbcType=VARCHAR},
+      lv = #{record.lv,jdbcType=INTEGER},
+      sex = #{record.sex,jdbcType=CHAR},
+      birthday = #{record.birthday,jdbcType=BIGINT},
+      email = #{record.email,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      last_time = #{record.lastTime,jdbcType=BIGINT},
+      permission = #{record.permission,jdbcType=INTEGER},
+      school = #{record.school,jdbcType=VARCHAR},
+      degree = #{record.degree,jdbcType=VARCHAR},
+      speciality = #{record.speciality,jdbcType=VARCHAR},
+      current_country = #{record.currentCountry,jdbcType=VARCHAR},
+      current_province = #{record.currentProvince,jdbcType=VARCHAR},
+      current_city = #{record.currentCity,jdbcType=VARCHAR},
+      current_area = #{record.currentArea,jdbcType=VARCHAR},
+      hometown_country = #{record.hometownCountry,jdbcType=VARCHAR},
+      hometown_province = #{record.hometownProvince,jdbcType=VARCHAR},
+      hometown_city = #{record.hometownCity,jdbcType=VARCHAR},
+      hometown_area = #{record.hometownArea,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.english.storm.pojo.User" >
+    update user
+    <set >
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="portrait != null" >
+        portrait = #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="lv != null" >
+        lv = #{lv,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=BIGINT},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=BIGINT},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=INTEGER},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        degree = #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null" >
+        speciality = #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCountry != null" >
+        current_country = #{currentCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="currentProvince != null" >
+        current_province = #{currentProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="currentCity != null" >
+        current_city = #{currentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="currentArea != null" >
+        current_area = #{currentArea,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCountry != null" >
+        hometown_country = #{hometownCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownProvince != null" >
+        hometown_province = #{hometownProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownCity != null" >
+        hometown_city = #{hometownCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hometownArea != null" >
+        hometown_area = #{hometownArea,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.english.storm.pojo.User" >
+    update user
+    set password = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      portrait = #{portrait,jdbcType=VARCHAR},
+      lv = #{lv,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=BIGINT},
+      email = #{email,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      last_time = #{lastTime,jdbcType=BIGINT},
+      permission = #{permission,jdbcType=INTEGER},
+      school = #{school,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=VARCHAR},
+      speciality = #{speciality,jdbcType=VARCHAR},
+      current_country = #{currentCountry,jdbcType=VARCHAR},
+      current_province = #{currentProvince,jdbcType=VARCHAR},
+      current_city = #{currentCity,jdbcType=VARCHAR},
+      current_area = #{currentArea,jdbcType=VARCHAR},
+      hometown_country = #{hometownCountry,jdbcType=VARCHAR},
+      hometown_province = #{hometownProvince,jdbcType=VARCHAR},
+      hometown_city = #{hometownCity,jdbcType=VARCHAR},
+      hometown_area = #{hometownArea,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=CHAR}
+  </update>
+</mapper>

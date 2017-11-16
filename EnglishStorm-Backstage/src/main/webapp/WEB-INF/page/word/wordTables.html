@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> - 数据表格</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/lib/hAdmin/css/font-awesome.css?v=4.4.0">
+
+    <!-- Data Tables -->
+    <link href="${pageContext.request.contextPath}/lib/hAdmin/css/plugins/dataTables/dataTables.bootstrap.css"
+          rel="stylesheet">
+
+    <link href="${pageContext.request.contextPath}/lib/hAdmin/css/animate.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/lib/hAdmin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<audio id="music"></audio>
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+
+                    <table class="table table-striped table-bordered table-hover " id="editable">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/hAdmin/js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/hAdmin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/lib/hAdmin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+<!-- Data Tables -->
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/lib/hAdmin/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/lib/hAdmin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+<!-- 自定义js -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/lib/hAdmin/js/content.js?v=1.0.0"></script>
+
+
+<script>
+    $(document).ready(function () {
+        var table = $('#editable').DataTable({
+//            "sScrollY" : 600, //DataTables的高
+//            "sScrollX" : 820, //DataTables的宽
+            "bAutoWidth": false,    //是否自适应宽度
+            "bScrollCollapse": false,  //是否开启DataTables的高度自适应，当数据条数不够分页数据条数的时候，插件高度是否随数据条数而改变
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "path": "/item/word/getList",
+                "type": "POST"
+            },
+            "columns": [
+                {"data": "id", "width": "40px", "title": "序号", "defaultContent": "",},
+                {"data": "word", "width": "70px", "title": "单词", "defaultContent": ""},
+                {"data": "chinese", "title": "中文", "defaultContent": ""},
+                {"data": "ukPhonetic", "width": "70px", "title": "音标(uk)", "defaultContent": "",},
+                {"data": "usPhonetic", "width": "70px", "title": "音标(us)", "defaultContent": ""},
+//                {"data": "soundUrl" ,"title":"音频文件URL","defaultContent":"",visible:false},
+                {
+                    "data": "soundUrl",
+                    "width": "50px",
+                    "title": "播放",
+                    "defaultContent": "<button class='play-btn' type='button' style='width:50px'>播放</button>"
+                },
+                {
+                    "data": null,
+                    "width": "50px",
+                    "title": "编辑",
+                    "defaultContent": "<button class='edit-btn' type='button' style='width:50px'>编辑</button>"
+                },
+                {
+                    "data": null,
+                    "width": "50px",
+                    "title": "删除",
+                    "defaultContent": "<button class='delete-btn' type='button' style='width: 50px'>删除</button>"
+                }
+            ],
+            columnDefs: [{
+                "width": "50px",
+                targets: 5,
+                render: function (data, type, row, meta) {
+                    return '<div id="path-div"style="display: none;">' + data + '</div>' + '<button class="play-btn" type="button"  style="width:50px" >播放</button>';
+                }
+            }
+            ]
+            ,
+
+            "dom": "<'row '<'#id.col-xs-6 ' l><'col-xs-6'f>>" + "t" + "<'row'<'col-xs-6'i><'col-xs-6'p>>",
+            initComplete: function () {
+                $("#id").append("<a onclick='fnClickAddRow();' href='javascript:void(0);'class='btn btn-primary' style='margin-left: 10px;padding-left: 20px;padding-right:20px '>添加</a>")
+            },
+            "createdRow": function (row, data, index) {
+                $('td', row).attr("class", "text-center");
+            }
+
+        });
+
+
+        $("#editable tbody").on("click", ".edit-btn", function () {
+            var tds = $(this).parents("tr").children();
+            $.each(tds, function (i, val) {
+                var jqob = $(val);
+
+                //跳过第1项 序号,按钮
+                if (i < 1 || jqob.has('button').length) {
+                    if (jqob.text() == "播放") {
+                        var btn = $("<button class='upfile-btn' type='button' style='width: 50px'>上存</button>");
+                        jqob.html(btn);
+                    }
+
+                    return true;
+                }
+
+                var txt = jqob.text();
+
+                var put = $("<input type='text' style='width: 100%;height: 100%' >");
+                put.val(txt);
+                jqob.html(put);
+            });
+            $(this).html("保存");
+            $(this).toggleClass("edit-btn");
+            $(this).toggleClass("save-btn");
+        });
+
+        $("#editable tbody").on("click", ".save-btn", function () {
+            var row = table.row($(this).parents("tr"));
+            var tds = $(this).parents("tr").children();
+
+            var dataKey = new Array();
+            dataKey[0] = "id";
+            dataKey[1] = "word";
+            dataKey[2] = "chinese";
+            dataKey[3] = "ukPhonetic";
+            dataKey[4] = "usPhonetic";
+            dataKey[5] = "soundUrl";
+            var data = "";
+
+
+            $.each(tds, function (i, val) {
+                var jqob = $(val);
+                if (i < 6) {
+                    var txt ;
+                    if (i == 0 ) {
+                        txt = jqob.text()
+                    } else if(i == 5){
+                        txt = jqob.children("div").text();
+                    }else {
+                        txt = jqob.children("input").val();
+                        jqob.html(txt);
+                    }
+
+                    if (i == 0) {
+                        data = dataKey[i] + "=" + txt;
+                    } else {
+                        data = data + "&" + dataKey[i] + "=" + txt;
+                    }
+//                    table.cell(jqob).data(txt);//修改DataTables对象的数据
+                }
+            });
+
+            $.ajax({
+                "path": "/item/word/upWord",
+                "data": data,
+                "type": "post",
+                "error": function () {
+                    alert("服务器未正常响应，请重试");
+                },
+                "success": function (response) {
+                    if (response.code != 200){
+                        alert("修改失败");
+                    }
+                }
+            });
+            $(this).html("编辑");
+            $(this).toggleClass("edit-btn");
+            $(this).toggleClass("save-btn");
+        });
+
+
+        $("#editable tbody").on("click", ".delete-btn", function () {
+            var row = table.row($(this).parents("tr"));
+            var tds = $(this).parents("tr").children();
+
+            var data = "";
+            $.each(tds, function (i, val) {
+                var jqob = $(val);
+                if (i == 0 ) {
+                    data = "id="+jqob.text();
+                }
+            });
+
+            $.ajax({
+                "path": "/item/word/deleteWord",
+                "data": data,
+                "type": "post",
+                "error": function () {
+                    alert("服务器未正常响应，请重试");
+                },
+                "success": function (response) {
+                    if (response.code == 200){
+                        row.remove().draw( false );
+                    }else {
+                        alert("修改失败");
+                    }
+                }
+            });
+//            $(this).html("编辑");
+//            $(this).toggleClass("edit-btn");
+//            $(this).toggleClass("save-btn");
+        });
+
+
+        $("#editable tbody").on("click", ".play-btn", function () {
+
+
+            var row = table.row($(this).parents("tr"));
+            var tds = $(this).parents("tr").children();
+
+
+            $.each(tds, function (i, val) {
+
+                if (i != 5) {
+                    return true;
+                }
+                var jqob = $(val);
+
+                var url_div = jqob.children("div");
+
+                var path = url_div.text();
+                var audio = document.getElementById("music");
+                audio.src = "http://120.77.32.231/" + path;
+//
+                audio.play();
+
+            });
+
+
+        });
+
+
+        $("#editable tbody").on("click", ".upfile-btn", function () {
+            var row = table.row($(this).parents("tr"));
+            var tds = $(this).parents("tr").children();
+            $.each(tds, function (i, val) {
+                var jqob = $(val);
+                //把input变为字符串
+                if (!jqob.has('button').length) {
+                    var txt = jqob.children("input").val();
+                    jqob.html(txt);
+                    table.cell(jqob).data(txt);//修改DataTables对象的数据
+                }
+            });
+            var data = row.data();
+            $.ajax({
+                "path": "/example/resources/user_share/inline_edit_no_plugin/edit.php",
+                "data": data,
+                "type": "post",
+                "error": function () {
+                    alert("服务器未正常响应，请重试");
+                },
+                "success": function (response) {
+                    alert(response);
+                }
+            });
+            $(this).html("编辑");
+            $(this).toggleClass("edit-btn");
+            $(this).toggleClass("save-btn");
+        });
+
+
+    });
+
+
+</script>
+</body>
+
+</html>

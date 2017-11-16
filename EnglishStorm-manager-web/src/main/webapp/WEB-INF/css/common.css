@@ -1,0 +1,49 @@
+*{
+    font-size: 30px;
+}
+
+
+.helloclass {
+
+}
+#helloid{
+    color:cornflowerblue;
+}
+
+
+li strong{
+    color: red;
+}
+
+h1,a,h2{
+    color: blue;font-size: 20px;
+}
+/** 给body增背景 **/
+body{
+    background-color: aqua;
+}
+
+/** 给pt添加属性 **/
+p{
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+
+}
+/** 未点击过 **/
+a:link{
+    color: aqua;
+    text-decoration: none;
+}
+/** 已点击过 **/
+a:visited{
+    color: #ff5d02;
+}
+/** 鼠标指针位于连接上方 **/
+a:hover{
+    color: #00daff;
+}
+/** 连接被点击的时候 **/
+a:active{
+    color: #3cff00;
+}
