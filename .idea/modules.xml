@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm.iml" filepath="$PROJECT_DIR$/EnglishStorm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm-common/EnglishStorm-common.iml" filepath="$PROJECT_DIR$/EnglishStorm-common/EnglishStorm-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm-manager-app/EnglishStorm-manager-app.iml" filepath="$PROJECT_DIR$/EnglishStorm-manager-app/EnglishStorm-manager-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm-manager-backstage/EnglishStorm-manager-backstage.iml" filepath="$PROJECT_DIR$/EnglishStorm-manager-backstage/EnglishStorm-manager-backstage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm-manager-dao/EnglishStorm-manager-dao.iml" filepath="$PROJECT_DIR$/EnglishStorm-manager-dao/EnglishStorm-manager-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm-manager-pojo/EnglishStorm-manager-pojo.iml" filepath="$PROJECT_DIR$/EnglishStorm-manager-pojo/EnglishStorm-manager-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm-manager-service/EnglishStorm-manager-service.iml" filepath="$PROJECT_DIR$/EnglishStorm-manager-service/EnglishStorm-manager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm-manager-web-app/EnglishStorm-manager-web-app.iml" filepath="$PROJECT_DIR$/EnglishStorm-manager-web-app/EnglishStorm-manager-web-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm-manager-web-backstage/EnglishStorm-manager-web-backstage.iml" filepath="$PROJECT_DIR$/EnglishStorm-manager-web-backstage/EnglishStorm-manager-web-backstage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnglishStorm-parent/EnglishStorm-parent.iml" filepath="$PROJECT_DIR$/EnglishStorm-parent/EnglishStorm-parent.iml" />
+    </modules>
+  </component>
+</project>

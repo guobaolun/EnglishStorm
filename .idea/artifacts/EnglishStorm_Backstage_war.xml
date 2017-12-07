@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="EnglishStorm-backstage:war">
+    <output-path>$PROJECT_DIR$/EnglishStorm-backstage/target</output-path>
+    <root id="archive" name="EnglishStorm-Backstage.war">
+      <element id="artifact" artifact-name="EnglishStorm-backstage:war exploded" />
+    </root>
+  </artifact>
+</component>
