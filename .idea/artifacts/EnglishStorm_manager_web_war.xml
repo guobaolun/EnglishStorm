@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="EnglishStorm-manager-web:war">
-    <output-path>$PROJECT_DIR$/EnglishStorm-manager-web/target</output-path>
-    <root id="archive" name="EnglishStorm-manager-web.war">
-      <element id="artifact" artifact-name="EnglishStorm-manager-web:war exploded" />
-    </root>
-  </artifact>
-</component>
