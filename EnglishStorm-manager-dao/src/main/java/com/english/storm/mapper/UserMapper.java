@@ -1,30 +1,18 @@
 package com.english.storm.mapper;
 
-import com.english.storm.pojo.User;
-import com.english.storm.pojo.UserExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.english.storm.entity.User;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.english.storm.entity.Word;
+import com.sun.tools.javac.util.List;
 
-public interface UserMapper {
-    int countByExample(UserExample example);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author guobaolun
+ * @since 2017-12-03
+ */
+public interface UserMapper extends BaseMapper<User> {
 
-    int deleteByExample(UserExample example);
-
-    int deleteByPrimaryKey(String userId);
-
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    List<User> selectByExample(UserExample example);
-
-    User selectByPrimaryKey(String userId);
-
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
 }

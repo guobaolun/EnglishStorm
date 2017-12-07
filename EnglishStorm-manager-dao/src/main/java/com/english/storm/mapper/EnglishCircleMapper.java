@@ -1,30 +1,21 @@
 package com.english.storm.mapper;
 
-import com.english.storm.pojo.EnglishCircle;
-import com.english.storm.pojo.EnglishCircleExample;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.english.storm.entity.EnglishCircle;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
-public interface EnglishCircleMapper {
-    int countByExample(EnglishCircleExample example);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author guobaolun
+ * @since 2017-12-03
+ */
+public interface EnglishCircleMapper extends BaseMapper<EnglishCircle> {
 
-    int deleteByExample(EnglishCircleExample example);
 
-    int deleteByPrimaryKey(String id);
 
-    int insert(EnglishCircle record);
-
-    int insertSelective(EnglishCircle record);
-
-    List<EnglishCircle> selectByExample(EnglishCircleExample example);
-
-    EnglishCircle selectByPrimaryKey(String id);
-
-    int updateByExampleSelective(@Param("record") EnglishCircle record, @Param("example") EnglishCircleExample example);
-
-    int updateByExample(@Param("record") EnglishCircle record, @Param("example") EnglishCircleExample example);
-
-    int updateByPrimaryKeySelective(EnglishCircle record);
-
-    int updateByPrimaryKey(EnglishCircle record);
 }

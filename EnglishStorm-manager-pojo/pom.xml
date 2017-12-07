@@ -11,16 +11,21 @@
         <relativePath>../EnglishStorm-parent/pom.xml</relativePath>
     </parent>
 
-    <!--<parent>-->
-        <!--<artifactId>EnglishStorm-manager</artifactId>-->
-        <!--<groupId>com.english.storm</groupId>-->
-        <!--<version>1.0-SNAPSHOT</version>-->
-        <!--<relativePath>../EnglishStorm-manager/pom.xml</relativePath>-->
-    <!--</parent>-->
+
 
     <artifactId>EnglishStorm-manager-pojo</artifactId>
     <modelVersion>4.0.0</modelVersion>
 
 
+
+    <dependencies>
+
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>

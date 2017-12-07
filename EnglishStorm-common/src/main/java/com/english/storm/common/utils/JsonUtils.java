@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author guobaolun
+ */
 public class JsonUtils {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -16,8 +19,8 @@ public class JsonUtils {
      * <p>Title: pojoToJson</p>
      * <p>Description: </p>
      *
-     * @param data
-     * @return
+     * @param data obj
+     * @return json
      */
     public static String objectToJson(Object data) {
         String string = null;
@@ -29,13 +32,6 @@ public class JsonUtils {
         return string;
     }
 
-    /**
-     *
-     * @param jsonData
-     * @param beanType
-     * @param <T>
-     * @return
-     */
 
     /**
      * 将json结果集转化为对象

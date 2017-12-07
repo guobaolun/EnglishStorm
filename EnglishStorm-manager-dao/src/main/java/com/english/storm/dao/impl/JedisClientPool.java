@@ -6,6 +6,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 /**
+ * @author guobaolun
  * redis单机版客户端
  */
 public class JedisClientPool implements JedisClient {

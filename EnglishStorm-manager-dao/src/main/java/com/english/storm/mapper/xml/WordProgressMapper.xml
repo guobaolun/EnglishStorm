@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.english.storm.mapper.WordProgressMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.english.storm.entity.WordProgress">
+		<id column="id" property="id" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_modified" property="gmtModified" />
+		<result column="user_id" property="userId" />
+		<result column="word" property="word" />
+		<result column="progress" property="progress" />
+		<result column="last_recite_time" property="lastReciteTime" />
+	</resultMap>
+
+</mapper>

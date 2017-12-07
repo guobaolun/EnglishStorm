@@ -1,30 +1,16 @@
 package com.english.storm.mapper;
 
-import com.english.storm.pojo.EnglishCircleChildComment;
-import com.english.storm.pojo.EnglishCircleChildCommentExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.english.storm.entity.EnglishCircleChildComment;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 
-public interface EnglishCircleChildCommentMapper {
-    int countByExample(EnglishCircleChildCommentExample example);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author guobaolun
+ * @since 2017-12-03
+ */
+public interface EnglishCircleChildCommentMapper extends BaseMapper<EnglishCircleChildComment> {
 
-    int deleteByExample(EnglishCircleChildCommentExample example);
-
-    int deleteByPrimaryKey(String id);
-
-    int insert(EnglishCircleChildComment record);
-
-    int insertSelective(EnglishCircleChildComment record);
-
-    List<EnglishCircleChildComment> selectByExample(EnglishCircleChildCommentExample example);
-
-    EnglishCircleChildComment selectByPrimaryKey(String id);
-
-    int updateByExampleSelective(@Param("record") EnglishCircleChildComment record, @Param("example") EnglishCircleChildCommentExample example);
-
-    int updateByExample(@Param("record") EnglishCircleChildComment record, @Param("example") EnglishCircleChildCommentExample example);
-
-    int updateByPrimaryKeySelective(EnglishCircleChildComment record);
-
-    int updateByPrimaryKey(EnglishCircleChildComment record);
 }

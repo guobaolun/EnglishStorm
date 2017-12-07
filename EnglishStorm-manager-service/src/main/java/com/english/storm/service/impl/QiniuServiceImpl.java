@@ -2,7 +2,7 @@ package com.english.storm.service.impl;
 
 import com.english.storm.common.pojo.EnglishStormResult;
 import com.english.storm.dao.JedisClient;
-import com.english.storm.service.QiniuService;
+import com.english.storm.service.IQiniuService;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import org.apache.http.util.TextUtils;
@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
  * 获取七牛上传令牌
  */
 @Service
-public class QiniuServiceImpl implements QiniuService {
-
-
-
+public class QiniuServiceImpl implements IQiniuService {
 
     @Value("${ACCESS_KEY}")
     private String ACCESS_KEY;
