@@ -7,6 +7,7 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
 /**
@@ -15,8 +16,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author guobaolun
- * @since 2017-12-03
+ * @since 2017-12-16
  */
+@TableName("es_word")
 public class Word extends Model<Word> {
 
     private static final long serialVersionUID = 1L;

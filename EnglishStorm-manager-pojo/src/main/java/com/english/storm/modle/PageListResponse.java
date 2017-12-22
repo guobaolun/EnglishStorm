@@ -2,22 +2,39 @@ package com.english.storm.modle;
 
 import java.util.List;
 
+/**
+ * @author guobaolun
+ */
 public class PageListResponse {
 
 
-    //当前页
+    /**
+     * 当前页
+     */
     private int pageNum;
-    //每页的数量
+    /**
+     * 每页的数量
+     */
     private int pageSize;
-    //当前页的数量
+    /**
+     * 当前页的数量
+     */
     private int size;
-    //总记录数
+    /**
+     * 总记录数
+     */
     private long total;
-    //总页数
+    /**
+     * 总页数
+     */
     private int pages;
-    //是否为第一页
+    /**
+     * 是否为第一页
+     */
     private boolean isFirstPage = false;
-    //是否为最后一页
+    /**
+     * 是否为最后一页
+     */
     private boolean isLastPage = false;
 
     private List<?> list;

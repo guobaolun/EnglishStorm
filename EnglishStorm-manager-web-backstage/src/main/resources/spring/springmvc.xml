@@ -17,8 +17,6 @@
         <property name="order" value="1"/>
     </bean>
 
-
-
     <!-- html视图解析器 必须先配置freemarkerConfig,注意html是没有prefix前缀属性的-->
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath">

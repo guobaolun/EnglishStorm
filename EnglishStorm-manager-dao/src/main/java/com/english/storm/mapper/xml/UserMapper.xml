@@ -32,5 +32,4 @@
 		<result column="hometown_area" property="hometownArea" />
 	</resultMap>
 
-
 </mapper>

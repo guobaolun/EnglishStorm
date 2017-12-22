@@ -16,9 +16,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author guobaolun
- * @since 2017-12-03
+ * @since 2017-12-16
  */
-@TableName("recite_result")
+@TableName("es_recite_result")
 public class ReciteResult extends Model<ReciteResult> {
 
     private static final long serialVersionUID = 1L;
@@ -54,8 +54,7 @@ public class ReciteResult extends Model<ReciteResult> {
     /**
      * 增加进度值
      */
-	@TableField("increase_progress")
-	private Integer increaseProgress;
+	private Integer increase;
     /**
      * 时间
      */
@@ -124,12 +123,12 @@ public class ReciteResult extends Model<ReciteResult> {
 		this.inputTime = inputTime;
 	}
 
-	public Integer getIncreaseProgress() {
-		return increaseProgress;
+	public Integer getIncrease() {
+		return increase;
 	}
 
-	public void setIncreaseProgress(Integer increaseProgress) {
-		this.increaseProgress = increaseProgress;
+	public void setIncrease(Integer increase) {
+		this.increase = increase;
 	}
 
 	public Date getReciteTime() {
@@ -163,7 +162,7 @@ public class ReciteResult extends Model<ReciteResult> {
 			", word=" + word +
 			", inputWord=" + inputWord +
 			", inputTime=" + inputTime +
-			", increaseProgress=" + increaseProgress +
+			", increase=" + increase +
 			", reciteTime=" + reciteTime +
 			", isRight=" + isRight +
 			"}";

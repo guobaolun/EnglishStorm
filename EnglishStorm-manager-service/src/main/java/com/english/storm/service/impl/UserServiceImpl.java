@@ -10,9 +10,8 @@ import com.english.storm.mapper.UserMapper;
 import com.english.storm.modle.UserResponse;
 import com.english.storm.service.IUserService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.english.storm.service.manager.UserManager;
-import com.english.storm.service.utils.CheckUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.english.storm.service.utils.CacheManager;
+import com.english.storm.service.utils.UserManager;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,21 +33,19 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
-    @Autowired
-    private JedisClient jedisClient;
-
-    @Value("${REDIS_SESSION_EXPIRE}")
-    private Integer redisSecond;
 
     @Autowired
     private UserManager userManager;
+    @Autowired
+    private CacheManager cacheManager;
+
+
 
     private static final int CURRENT = 0;
-//	private static final int hometown = 1;
+//	private static final int HOMETOWN = 1;
 
     @Override
     public EnglishStormResult findUser(String userId, String password) {
-
 
         User user = new User();
 
@@ -63,9 +60,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         user.setLastTime(new Date(System.currentTimeMillis()));
         user.updateById();
-        user.setPassword(null);
 
-        return EnglishStormResult.ok(cache(user,UUID.randomUUID().toString()));
+        String token = UUID.randomUUID().toString();
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
 
@@ -106,16 +104,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,UUID.randomUUID().toString()));
+
+
+        String token = UUID.randomUUID().toString();
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
     @Override
     public EnglishStormResult updateBirthday(String token, long birthday) throws IOException {
 
-        User user = CheckUtils.checkToken(token);
+        User user = cacheManager.getCacheUser(token);
         if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
+
 
         user.setBirthday(new Date(birthday));
         boolean isOk = user.updateById();
@@ -124,7 +127,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,token));
+
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
+
     }
 
 
@@ -132,7 +138,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public EnglishStormResult updateDegree( String token, String degree) throws IOException {
 
-        User user = CheckUtils.checkToken(token);
+        User user = cacheManager.getCacheUser(token);
         if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
@@ -144,7 +150,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,token));
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
 
@@ -152,7 +159,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public EnglishStormResult updateIntroduce(String token, String introduce) throws IOException {
 
-        User user = CheckUtils.checkToken(token);
+        User user = cacheManager.getCacheUser(token);
         if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
@@ -164,7 +171,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,token));
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
 
@@ -172,7 +180,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public EnglishStormResult updateNickname(String token, String nickname) throws IOException {
-        User user = CheckUtils.checkToken(token);
+        User user = cacheManager.getCacheUser(token);
         if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
@@ -185,14 +193,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,token));
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
 
 
     @Override
     public EnglishStormResult updatePortrait(String token, String portrait) throws IOException {
-        User user = CheckUtils.checkToken(token);
+        User user = cacheManager.getCacheUser(token);
         if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
@@ -205,13 +214,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,token));
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
 
     @Override
     public EnglishStormResult updateSchool(String token, String school) throws IOException {
-        User user = CheckUtils.checkToken(token);
+        User user = cacheManager.getCacheUser(token);
         if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
@@ -224,13 +234,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,token));
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
 
     @Override
     public EnglishStormResult updateSex(String token, int sex) throws IOException {
-        User user = CheckUtils.checkToken(token);
+        User user = cacheManager.getCacheUser(token);
         if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
@@ -243,13 +254,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,token));
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
 
     @Override
     public EnglishStormResult updateSpeciality(String token, String speciality) throws IOException {
-        User user = CheckUtils.checkToken(token);
+        User user = cacheManager.getCacheUser(token);
         if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
@@ -261,7 +273,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,token));
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
 
@@ -269,7 +282,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public EnglishStormResult updateLocation(String token, int type, String country, String province, String city, String area) throws IOException {
-        User user = CheckUtils.checkToken(token);
+        User user = cacheManager.getCacheUser(token);
         if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
@@ -293,7 +306,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return EnglishStormResult.build(EnglishStormResult.Status.SERVER_ERROR);
         }
 
-        return EnglishStormResult.ok(cache(user,token));
+        cacheManager.cacheUser(user,token);
+        return EnglishStormResult.ok(userManager.getUserResponse(user,token));
     }
 
 
@@ -337,13 +351,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
 
-    /**
-     * 缓存在redis
-     */
-    private UserResponse cache(User user,String token){
-        user.setPassword(null);
-        jedisClient.set(token, JsonUtils.objectToJson(user),redisSecond);
-        return userManager.getUserResponse(user, token);
-    }
+
 
 }

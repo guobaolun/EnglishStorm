@@ -13,6 +13,7 @@ public class PageController {
 
 	@RequestMapping("/")
 	public String showIndex() {
+		System.out.println("");
 		return "index";
 		
 	}

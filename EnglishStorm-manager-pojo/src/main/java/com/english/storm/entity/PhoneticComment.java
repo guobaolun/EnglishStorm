@@ -16,9 +16,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author guobaolun
- * @since 2017-12-03
+ * @since 2017-12-16
  */
-@TableName("phonetic_comment")
+@TableName("es_phonetic_comment")
 public class PhoneticComment extends Model<PhoneticComment> {
 
     private static final long serialVersionUID = 1L;

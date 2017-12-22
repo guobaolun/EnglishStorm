@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author guobaolun
- * @since 2017-12-03
+ * @since 2017-12-16
  */
 public class Administrator extends Model<Administrator> {
 

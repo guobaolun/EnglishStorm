@@ -28,19 +28,31 @@ public class WordProgressController {
     private IWordProgressService wordProgressService;
 
 
-    @RequestMapping(value = "/user/update/portrait", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/getReciteWordList", method = RequestMethod.POST)
     @ResponseBody
-    public EnglishStormResult getWordProgressList(String token) {
-//        EnglishStormResult result;
-//        try {
-//            result = wordProgressService.addResult(userId,word,inputWord,inputTime,increaseProgress,reciteTime);
-//        } catch (Exception e) {
-//            result = EnglishStormResult.serviceException(e);
-//        }
-//        return result;
-        return null;
+    public EnglishStormResult getReciteWordList(String token) {
+        EnglishStormResult result;
+        try {
+            result = wordProgressService.findReciteWordList(token);
+        } catch (Exception e) {
+            result = EnglishStormResult.serviceException(e);
+        }
+        return result;
     }
 
 
+
+    @RequestMapping(value = "/getReciteWordCount", method = RequestMethod.POST)
+    @ResponseBody
+    public EnglishStormResult getReciteWordCount(String token) {
+        EnglishStormResult result;
+        try {
+            result = wordProgressService.getReciteWordCount(token);
+        } catch (Exception e) {
+            result = EnglishStormResult.serviceException(e);
+        }
+        return result;
+    }
 }
 

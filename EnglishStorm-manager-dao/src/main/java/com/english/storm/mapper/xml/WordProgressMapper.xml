@@ -13,4 +13,8 @@
 		<result column="last_recite_time" property="lastReciteTime" />
 	</resultMap>
 
+	<select id="findReciteWord" parameterType="int"  resultType="java.lang.String">
+		select word from es_word where word not in (select word from es_word_progress) ORDER BY RAND() LIMIT #{selectCount}
+	</select>
+
 </mapper>

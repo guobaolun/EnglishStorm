@@ -1,4 +1,4 @@
-package com.english.storm.service.manager;
+package com.english.storm.service.utils;
 
 import com.english.storm.entity.User;
 import com.english.storm.modle.UserResponse;
@@ -26,7 +26,12 @@ public class UserManager {
         userResponse.setPortrait(IMAGE_SERVER_BASE_URL+user.getPortrait());
         userResponse.setPortraitThumbnail(IMAGE_SERVER_BASE_URL+user.getPortrait()+IMAGE_THUMBNAIL_360);
         userResponse.setSex(user.getIsSex());
-        userResponse.setBirthday(user.getBirthday().getTime());
+
+        if (user.getBirthday() !=null){
+            userResponse.setBirthday(user.getBirthday().getTime());
+        }else{
+            userResponse.setBirthday(0L);
+        }
         userResponse.setSchool(user.getSchool());
         userResponse.setDegree(user.getDegree());
         userResponse.setSpeciality(user.getSpeciality());

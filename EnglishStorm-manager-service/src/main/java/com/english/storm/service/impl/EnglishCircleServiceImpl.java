@@ -13,6 +13,7 @@ import com.english.storm.modle.EnglishCircleData;
 import com.english.storm.modle.PageListResponse;
 import com.english.storm.service.IEnglishCircleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.english.storm.service.utils.CacheManager;
 import com.mysql.fabric.xmlrpc.base.Data;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,6 @@ import java.util.UUID;
 @Service
 public class EnglishCircleServiceImpl extends ServiceImpl<EnglishCircleMapper, EnglishCircle> implements IEnglishCircleService {
 
-    @Autowired
-    private JedisClient jedisClient;
-
 
     @Value("${IMAGE_SERVER_BASE_URL}")
     private String imageServerBaseUrl;
@@ -54,17 +52,16 @@ public class EnglishCircleServiceImpl extends ServiceImpl<EnglishCircleMapper, E
     @Value("${IMAGE_WATERMARK}")
     private String imageWatermark;
 
+    @Autowired
+    private CacheManager cacheManager;
 
     @Override
     public EnglishStormResult addEnglishCircle(String token, String content, String voiceFile, Integer voiceTime, String voiceImageFile, String imageList) throws IOException {
 
-        String userInfoStr = jedisClient.get(token);
-        if (TextUtils.isEmpty(userInfoStr)) {
+        User user = cacheManager.getCacheUser(token);
+        if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
-
-        User user = JsonUtils.jsonToObject(userInfoStr, User.class);
-
 
         if (!TextUtils.isEmpty(imageList)) {
             String[] imgArr = imageList.split(",");

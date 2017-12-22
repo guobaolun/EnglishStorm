@@ -16,9 +16,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author guobaolun
- * @since 2017-12-03
+ * @since 2017-12-16
  */
-@TableName("english_circle_child_comment")
+@TableName("es_english_circle_child_comment")
 public class EnglishCircleChildComment extends Model<EnglishCircleChildComment> {
 
     private static final long serialVersionUID = 1L;

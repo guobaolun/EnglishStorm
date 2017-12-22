@@ -1,9 +1,11 @@
 package com.english.storm.modle;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.english.storm.entity.PhoneticChildComment;
 import com.english.storm.entity.User;
 
+/**
+ * @author guobaolun
+ */
 public class ChildCommentData {
 
     private long id;

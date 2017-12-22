@@ -2,6 +2,9 @@ package com.english.storm.modle;
 
 import java.util.List;
 
+/**
+ * @author guobaolun
+ */
 public class EnglishCircleData {
 
     private long id;

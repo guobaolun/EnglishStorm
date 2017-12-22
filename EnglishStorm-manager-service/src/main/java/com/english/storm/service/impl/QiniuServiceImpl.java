@@ -2,13 +2,17 @@ package com.english.storm.service.impl;
 
 import com.english.storm.common.pojo.EnglishStormResult;
 import com.english.storm.dao.JedisClient;
+import com.english.storm.entity.User;
 import com.english.storm.service.IQiniuService;
+import com.english.storm.service.utils.CacheManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 /**
  * @author guobaolun
@@ -28,20 +32,15 @@ public class QiniuServiceImpl implements IQiniuService {
 
 
     @Autowired
-    private JedisClient jedisClient;
-
-
+    private CacheManager cacheManager;
 
 
     @Override
-    public EnglishStormResult getToken(String token) {
-        String userInfoStr = jedisClient.get(token);
-
-        if (TextUtils.isEmpty(userInfoStr)) {
+    public EnglishStormResult getToken(String token) throws IOException {
+        User user = cacheManager.getCacheUser(token);
+        if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
-
-
 
         Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
 

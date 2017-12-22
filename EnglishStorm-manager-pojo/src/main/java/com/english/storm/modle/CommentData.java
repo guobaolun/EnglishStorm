@@ -2,6 +2,9 @@ package com.english.storm.modle;
 
 import java.util.ArrayList;
 
+/**
+ * @author guobaolun
+ */
 public class CommentData {
 
     private long id;
@@ -28,7 +31,7 @@ public class CommentData {
 
     private Integer praiseCount;
 
-    private ArrayList<ChildCommentData> childConmentList;
+    private ArrayList<ChildCommentData> childCommentList;
 
 
     public long getId() {
@@ -127,11 +130,11 @@ public class CommentData {
         this.praiseCount = praiseCount;
     }
 
-    public ArrayList<ChildCommentData> getChildConmentList() {
-        return childConmentList;
+    public ArrayList<ChildCommentData> getChildCommentList() {
+        return childCommentList;
     }
 
-    public void setChildConmentList(ArrayList<ChildCommentData> childConmentList) {
-        this.childConmentList = childConmentList;
+    public void setChildCommentList(ArrayList<ChildCommentData> childCommentList) {
+        this.childCommentList = childCommentList;
     }
 }

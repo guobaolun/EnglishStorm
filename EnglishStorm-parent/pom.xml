@@ -14,7 +14,8 @@
         <junit.version>4.12</junit.version>
         <spring.version>4.3.7.RELEASE</spring.version>
         <mysql.version>5.1.32</mysql.version>
-        <slf4j.version>1.6.4</slf4j.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <log4j.version>1.2.14</log4j.version>
         <jackson.version>2.8.7</jackson.version>
         <druid.version>1.0.9</druid.version>
         <httpclient.version>4.3.5</httpclient.version>
@@ -39,8 +40,6 @@
         <spring-context-support.version>4.0.4.RELEASE</spring-context-support.version>
         <freemarker.version>2.3.27-incubating</freemarker.version>
     </properties>
-
-
 
 
     <dependencyManagement>
@@ -92,6 +91,14 @@
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+
+
 
 
             <!-- mybatis-plus 注意:mybatis-plus会自动维护mybatis以及mybatis-spring的依赖,所以不需要引入后两者,避免发生版本冲突 -->
@@ -156,7 +163,6 @@
                 <artifactId>spring-context-support</artifactId>
                 <version>${spring-context-support.version}</version>
             </dependency>
-
 
 
             <!-- JSP相关 -->
@@ -228,7 +234,6 @@
                 <artifactId>happy-dns-java</artifactId>
                 <version>${happy-dns.version}</version>
             </dependency>
-
 
 
         </dependencies>

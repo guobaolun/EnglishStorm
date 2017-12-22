@@ -32,7 +32,11 @@
                     <port>8080</port>
                     <path>/EnglishStorm-manager-app</path>
                     <!--&lt;!&ndash; 服务器热部署url，tomcat7的url &ndash;&gt;-->
-                    <url>http://120.77.32.231:8080/manager/text</url>
+                    <!--<url>http://120.77.32.231:8080/manager/text</url>-->
+                    <url>http://192.168.2.201:8080/manager/text</url>
+
+
+                    <!--<url>http://localhost:8080/manager/html</url>换成了<url>http://localhost:8080/manager/text</url>问题解决了-->
 
                     <username>tomcat</username>
                     <password>guobaolun</password>

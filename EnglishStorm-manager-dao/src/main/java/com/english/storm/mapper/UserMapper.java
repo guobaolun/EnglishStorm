@@ -2,8 +2,6 @@ package com.english.storm.mapper;
 
 import com.english.storm.entity.User;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.english.storm.entity.Word;
-import com.sun.tools.javac.util.List;
 
 /**
  * <p>
@@ -11,7 +9,7 @@ import com.sun.tools.javac.util.List;
  * </p>
  *
  * @author guobaolun
- * @since 2017-12-03
+ * @since 2017-12-08
  */
 public interface UserMapper extends BaseMapper<User> {
 

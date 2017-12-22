@@ -8,6 +8,8 @@ import com.english.storm.entity.User;
 import com.english.storm.mapper.EnglishCircleChildCommentMapper;
 import com.english.storm.service.IEnglishCircleChildCommentService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.english.storm.service.utils.CacheManager;
+import com.english.storm.service.utils.UserManager;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,18 +30,21 @@ import java.util.UUID;
 public class EnglishCircleChildCommentServiceImpl extends ServiceImpl<EnglishCircleChildCommentMapper, EnglishCircleChildComment> implements IEnglishCircleChildCommentService {
 
 
+
+
     @Autowired
-    private JedisClient jedisClient;
+    private CacheManager cacheManager;
+
 
 
     @Override
     public EnglishStormResult addChildComment(String token, long commentId, String targetUserId, String content, String voice, Integer voiceTime, Integer type) throws IOException {
 
-        String userInfoStr = jedisClient.get(token);
-        if (TextUtils.isEmpty(userInfoStr)) {
+        User user = cacheManager.getCacheUser(token);
+        if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
-        User user = JsonUtils.jsonToObject(userInfoStr, User.class);
+
         Date date = new Date();
         EnglishCircleChildComment childComment = new EnglishCircleChildComment();
         childComment.setGmtCreate(date);

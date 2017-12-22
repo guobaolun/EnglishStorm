@@ -1,10 +1,7 @@
 package com.english.storm.mapper;
 
-import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.english.storm.entity.EnglishCircle;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-
-import java.util.List;
 
 /**
  * <p>
@@ -12,10 +9,8 @@ import java.util.List;
  * </p>
  *
  * @author guobaolun
- * @since 2017-12-03
+ * @since 2017-12-08
  */
 public interface EnglishCircleMapper extends BaseMapper<EnglishCircle> {
-
-
 
 }

@@ -12,6 +12,7 @@ import com.english.storm.modle.CommentData;
 import com.english.storm.modle.PageListResponse;
 import com.english.storm.service.IPhoneticCommentService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.english.storm.service.utils.CacheManager;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,18 +38,18 @@ public class PhoneticCommentServiceImpl extends ServiceImpl<PhoneticCommentMappe
     @Value("${IMAGE_SERVER_BASE_URL}")
     private String imageServerBaseUrl;
 
+
     @Autowired
-    private JedisClient jedisClient;
+    private CacheManager cacheManager;
+
 
     @Override
     public EnglishStormResult addComment(String token, long articleId, String content, String voice, int voiceTime, int type) throws IOException {
 
-        String userInfoStr = jedisClient.get(token);
-
-        if (TextUtils.isEmpty(userInfoStr)) {
+        User user = cacheManager.getCacheUser(token);
+        if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
-        User user = JsonUtils.jsonToObject(userInfoStr, User.class);
 
         Date date = new Date();
         PhoneticComment comment = new PhoneticComment();
@@ -162,7 +163,7 @@ public class PhoneticCommentServiceImpl extends ServiceImpl<PhoneticCommentMappe
 
             }
 
-            commentData.setChildConmentList(childCommentDataList);
+            commentData.setChildCommentList(childCommentDataList);
 
             dataList.add(commentData);
         }

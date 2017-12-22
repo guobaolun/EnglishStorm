@@ -15,6 +15,7 @@ import java.io.IOException;
  * @since 2017-12-03
  */
 public interface IWordProgressService extends IService<WordProgress> {
-    EnglishStormResult addProgress(String token, String word) throws IOException;
-    EnglishStormResult getProgressList(String token, String word) throws IOException;
+//    EnglishStormResult addProgress(String token, String word) throws IOException;
+    EnglishStormResult findReciteWordList(String token) throws IOException;
+    EnglishStormResult getReciteWordCount(String token) throws IOException;
 }

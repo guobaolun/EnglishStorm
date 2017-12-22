@@ -16,9 +16,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author guobaolun
- * @since 2017-12-03
+ * @since 2017-12-16
  */
-@TableName("word_progress")
+@TableName("es_word_progress")
 public class WordProgress extends Model<WordProgress> {
 
     private static final long serialVersionUID = 1L;
@@ -46,7 +46,7 @@ public class WordProgress extends Model<WordProgress> {
      */
 	private Integer progress;
     /**
-     * 上次背单词时间
+     * 最后一次背单词时间
      */
 	@TableField("last_recite_time")
 	private Date lastReciteTime;

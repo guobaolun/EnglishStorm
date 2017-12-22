@@ -5,18 +5,16 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.english.storm.common.pojo.EnglishStormResult;
 import com.english.storm.common.utils.JsonUtils;
 import com.english.storm.dao.JedisClient;
-import com.english.storm.entity.EnglishCircle;
 import com.english.storm.entity.EnglishCircleChildComment;
 import com.english.storm.entity.EnglishCircleComment;
 import com.english.storm.entity.User;
-import com.english.storm.mapper.EnglishCircleChildCommentMapper;
 import com.english.storm.mapper.EnglishCircleCommentMapper;
-import com.english.storm.mapper.UserMapper;
 import com.english.storm.modle.ChildCommentData;
 import com.english.storm.modle.CommentData;
 import com.english.storm.modle.PageListResponse;
 import com.english.storm.service.IEnglishCircleCommentService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.english.storm.service.utils.CacheManager;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * <p>
@@ -43,17 +40,15 @@ public class EnglishCircleCommentServiceImpl extends ServiceImpl<EnglishCircleCo
     private String imageServerBaseUrl;
 
     @Autowired
-    private JedisClient jedisClient;
+    private CacheManager cacheManager;
 
     @Override
     public EnglishStormResult addComment(String token, long articleId, String content, String voice, int voiceTime, int type) throws IOException {
 
-        String userInfoStr = jedisClient.get(token);
-
-        if (TextUtils.isEmpty(userInfoStr)) {
+        User user = cacheManager.getCacheUser(token);
+        if (user == null) {
             return EnglishStormResult.build(EnglishStormResult.Status.ERROR_50001);
         }
-        User user = JsonUtils.jsonToObject(userInfoStr, User.class);
 
         Date date = new Date();
         EnglishCircleComment comment = new EnglishCircleComment();
@@ -182,7 +177,7 @@ public class EnglishCircleCommentServiceImpl extends ServiceImpl<EnglishCircleCo
 
             }
 
-            commentData.setChildConmentList(childCommentDataList);
+            commentData.setChildCommentList(childCommentDataList);
 
             dataList.add(commentData);
         }

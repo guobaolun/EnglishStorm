@@ -16,9 +16,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author guobaolun
- * @since 2017-12-03
+ * @since 2017-12-16
  */
-@TableName("login_info")
+@TableName("es_login_info")
 public class LoginInfo extends Model<LoginInfo> {
 
     private static final long serialVersionUID = 1L;

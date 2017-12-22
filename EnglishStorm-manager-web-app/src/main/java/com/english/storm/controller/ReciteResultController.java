@@ -32,16 +32,18 @@ public class ReciteResultController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public EnglishStormResult updatePortrait(String token, String resultListStr) {
-//        EnglishStormResult result;
-//        try {
-//            result = reciteResultService.addResultList(token,resultListStr);
-//        } catch (Exception e) {
-//            result = EnglishStormResult.serviceException(e);
-//        }
-//        return result;
-        return null;
+    public EnglishStormResult addReciteResult(String token, String resultData) {
+        EnglishStormResult result;
+        try {
+            result = reciteResultService.addReciteResult(token,resultData);
+        } catch (Exception e) {
+            result = EnglishStormResult.serviceException(e);
+        }
+        return result;
     }
+
+
+
 
 
 
